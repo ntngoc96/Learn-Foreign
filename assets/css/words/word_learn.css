@@ -1,0 +1,248 @@
+*{
+    margin:0;
+    padding:0;
+    text-decoration: none;
+}
+
+
+body{
+    height: 100vh;
+    background-image:url('../../images/words/word-learn-background.jpg');
+    background-position: center;
+    background-size:cover;
+    color:white;
+}
+
+    .container, .form{
+        height: 95vh;
+        max-width: 100%;
+        display:flex;
+        justify-content: center;
+        align-items:center;
+        position: relative;
+    }
+
+        .navigation__button {
+            top: 11%;
+            right: 7%;
+
+            
+            background-color: #000;
+
+            user-select: none;
+
+        }
+
+        .navigation__icon, .navigation__icon::before, .navigation__icon::after{
+            background-color:#fff;
+        }
+
+        .navigation__link:link, .navigation__link:visited{
+            color:#ca0b0b;
+
+            font-weight: 700;
+        }
+
+        .form{
+            width:100%;
+        }
+
+        .container .wrapper{
+            height: 300px;
+            width: 350px;
+            margin:auto;
+
+            color:#DBE9EF;
+            background: rgb(33,91,116);
+            background: radial-gradient(circle, rgba(33,91,116,0.72) 0%, rgba(132,202,231,1) 100%);
+            padding:1rem 2rem;
+
+            position: relative;
+            /* left:50%;
+            top:50%; */
+            /* transform: translate(-50%,-50%); */
+
+            text-align: center;
+            border:1px solid rgba(30, 123, 133, 0.699);
+            border-radius:20px;
+            
+            visibility: hidden;
+            display:none;
+            transition:300ms;
+            opacity: 0;
+        }
+
+            .wrapper .word{
+                display:flex;
+                justify-content: center;
+                align-items: center;
+                
+                width: 100%;
+                height:100%;
+                
+                position: absolute;
+                left:0;
+                top: 0;
+                
+                background: rgb(116,235,213);
+                background: linear-gradient(0deg, rgba(116,235,213,1) 0%, rgba(159,172,230,1) 100%);
+                
+                transition:300ms;
+                
+                text-shadow: 2px -2px 2px #f8f8f8;
+                
+                border-radius:20px;
+                z-index:999;
+            }
+
+            .wrapper .word span{
+                color:#5B616A;
+                font-size:30px;
+                transition:300ms;
+            }
+                .wrapper:hover > .word{
+                    height:30%;
+                    transform: translateY(-25%) scale(.4);
+                }
+
+                .wrapper:hover .word span{
+                    font-weight: 500;
+                    font-size:40px;
+                    color:orangered;
+                    text-shadow: rgb(253, 128, 82);
+                }
+                .wrapper:hover{
+                    width: 500px;
+                }
+
+            
+            .wrapper .image{
+                margin-top:4rem;
+            }
+                .image img{
+                    max-height:110px;
+                }
+
+            /* example too long to display so we must hidden overflow */
+            /* i just use overflow with div tag i cannot use with td or tr or table */
+            .describe table .example{
+                height:20px;
+                overflow: hidden;
+            }
+
+                .describe > div{
+                    text-align: left;
+                }
+
+            .describe{
+                margin-top:1rem;
+                display: flex;
+                justify-content: center;
+                
+            }
+
+
+            .describe table{
+                font-size:13px;
+                
+            }
+
+            .describe td{
+                text-align:center;
+                padding-left:2rem;
+            }
+            
+            .wrapper button{
+                text-align: center;
+                margin-top: .3rem;
+                width: 200px;
+                padding: .5rem 1rem;
+                border-radius:10px;
+                border:none;
+                outline:none;
+                background-color: #4CE0D2;
+            }
+
+
+        .button > i{
+            padding:1rem;
+            font-size:20px;
+        }
+
+        .button .left{
+            position: absolute;
+            left:7%;
+            top:50%;
+            transform: translate(-75%,-50%);
+        }
+        
+        .button .right{
+            position: absolute;
+            right:7%;
+            top:50%;
+            transform: translate(75%,-50%);
+        }
+
+        .wrapper audio{
+            transform: scale(.6);
+            width:300px;
+        }
+    
+    .btn--value{
+        position: absolute;
+        right:1rem;
+        top: 1rem;
+        /* background-color:rgb(106, 180, 255); */
+        background-color: rgba(16, 6, 2, 0.15);
+        color:#cfff04;
+
+        font-family: 'Montserrat', sans-serif !important;
+        font-weight: 700 !important;
+        
+        outline: none;
+        border:1px solid rgb(106,180,255) !important;
+
+
+        padding: .7rem 3rem !important;
+    }
+    /* when arrow was clicked, trigger class actived to show current word */
+    .container .actived{
+        display:block;
+        opacity: 1;
+        visibility: visible ;
+        animation: appear .5s ease-out;
+    }
+    /* move slide to left */
+    .container .animation-left{
+        animation: moveLeft 1s linear forwards;
+        
+    }
+    /* move slide to right */
+    .container .animation-right{
+        animation: moveRight 1s linear forwards;
+        
+    }
+
+@keyframes moveLeft{
+    0%{ transfrom: translateX(0)}
+    25%{ opacity:.8}
+    50%{  opacity:.6}
+    75%{ opacity: .4}
+    90%{opacity:.2}
+    100%{ transform: translateX(-300px); opacity: 0}
+}
+
+@keyframes moveRight{
+    0%{ transfrom: translateX(0)}
+    25%{ opacity:.8}
+    50%{  opacity:.6}
+    75%{ opacity: .4}
+    90%{opacity:.2}
+    100%{ transform: translateX(300px); opacity: 0}
+}
+
+@keyframes appear{
+    0%{ opacity: 0;}
+    50%{ opacity: .5;}
+    100%{ opacity: 1;}
+}

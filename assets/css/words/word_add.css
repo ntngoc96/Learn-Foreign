@@ -1,0 +1,102 @@
+.container{
+    padding:2rem 3rem;
+    color:white;
+    background-color: #dadada;
+}
+
+    .section-add-word{
+        padding: 3rem;  
+        width:35%;
+        
+        margin: 0 auto;
+
+        border:1px solid lightblue;
+        border-radius: 5px;
+
+        background-image: linear-gradient(to right bottom, #4c2e5e98, #2c2739e0),url('../../images/template/word_add.jpg');
+        background-size:cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+        .form__group > *{
+            display:block;
+        }
+
+        .form__group{
+            width:80%;
+            
+            margin:0 auto .8rem auto;
+
+        }
+    
+
+            .form__label{
+                margin-bottom:.5rem;
+            }
+    
+            .form__group > .form__input{
+                box-sizing: border-box;
+
+                width:100%;
+    
+                padding:.4rem .5rem;
+    
+                border-radius: 3px;
+                border:none;    
+    
+                outline: none;
+
+                font-family: 'Montserrat', sans-serif !important;
+            }
+
+            .form__wordform{
+                font-size:.8rem;
+            }
+
+            .form__wordform > .form__input{
+                margin-left:1rem;
+            }
+
+    .form__heading{
+        margin-bottom:2rem;
+    }
+
+    .form__heading-primary{
+        font-size:3rem;
+
+        text-align: center;
+
+        background-image: linear-gradient(to top, rgba(2,0,36,1) 0%, rgb(162, 147, 147) 0%, rgb(118, 217, 195) 53%, rgb(230, 95, 255) 96%);
+        -webkit-background-clip: text;
+        color:transparent;
+    }
+
+    .form__heading-primary:hover{
+        transform: skewX(15deg) skewY(2deg);
+        text-shadow: .5rem 1rem 2rem rgba(#000,.2);
+    }
+
+    .form__button{
+        text-align: center;
+    }
+
+        .btn--add,.btn--clear{
+            color:white;
+            outline:none;
+        }
+
+        .btn--add{
+            margin-right:1rem;
+        }
+    
+
+    .link__logout:link,.link__logout:visited{
+        color:#34495E;
+    }
+
+    .link__logout{
+        position: absolute;
+        top:1%;
+        right:2%;
+    }
