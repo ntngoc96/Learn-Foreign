@@ -1,0 +1,134 @@
+*{
+    margin:0;
+    padding:0;
+    text-decoration: none;
+}
+
+
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container{
+    position: relative;
+    width:100%;
+    height:120vh;
+
+    padding: 2rem;
+
+    background-color: aliceblue;
+
+    box-sizing: border-box;
+}
+
+.section-show-library{
+    width:80%;
+
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+}
+
+    table {
+        width: 100%;
+
+        border-collapse: collapse;
+        background-color: #34495E;
+    }
+        .table__caption{
+            font-weight: 400 !important;
+            font-size:2rem;
+
+            color:#34495E;
+
+            margin-bottom:1.5rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 1rem;
+        }
+    
+        /* tr:nth-child(even){background-color: #f2f2f2} */
+        td{
+            color:#fff;
+        }
+        
+        th {
+            font-weight: 700;
+            color: #dd5;
+        }
+
+        .table__row-detail{
+            width:100%;
+            display:none;
+
+            padding:1rem; 
+
+            display:flex;
+            flex-direction: row;
+
+
+        }
+
+            .table__row-detail > * {
+                height:100%;
+                flex-basis: 50%;
+            }
+
+            .row-detail__left > p,.row-detail__right > p{
+                padding:.5rem;
+            }
+
+            .row-detail__left > p{
+                padding-left:10rem;
+                
+            }
+
+        .table__button{
+            padding:1rem;
+
+            text-align: center;
+        }
+
+            .btn--make-test,.btn--start-learn{
+                font-family: 'Montserrat', sans-serif !important;
+                font-weight: 700 !important;
+                
+                outline: none;
+                border:1px solid rgba(0,225,255,1);
+
+                color: #dd5;    
+                background-color: #34495E;
+
+                padding: .7rem 3rem !important;
+            }
+
+        #table__show{
+            display:none;
+        }
+
+        .table__link:link,.table__link:visited,.table__label{
+            margin-right:.5rem;
+            
+            color: rgba(0,225,255,1);
+        }
+
+    .link__redirect{
+        position: absolute;
+        top:0;
+        right:1%;
+    }
+
+    .link__redirect > a{
+        display: block;
+    }
+
+    .link__items:link,.link__items:visited,.link__logout:link,.link__logout:visited{
+        color:#34495E;
+    }
+
+    .link__logout{
+        position: absolute;
+        top:-2%;
+        right:0;
+    }

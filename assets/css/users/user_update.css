@@ -1,0 +1,62 @@
+*{
+    margin:0;
+    padding:0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container{
+    padding:3rem 2rem;
+
+    background-image: url('../../images/template/user_update_bg-kinkakuji.jpg');
+    background-size: cover;
+    background-position-x: 0;
+    background-repeat: no-repeat;
+}
+
+.section-register{
+    width:30%;
+    /* height:30rem; */
+
+    margin: 0 auto;
+    padding: 2rem 3rem;
+
+    /* border:1px solid tomato; */
+    border-radius: 10px;
+
+    background-image:  linear-gradient(to right bottom, #bfdbb998, #d1dfdaa1),url('../../images/template/user_upate_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+    .form__group > *{
+        display:block;
+    }
+
+    .form__group{
+        margin-bottom:.8rem;
+    }
+
+        .form__label{
+            margin-bottom:.5rem;
+        }
+
+        .form__input{
+            width:80%;
+
+            padding:.3rem .2rem;
+
+            border-radius: 3px;
+            border:none;    
+
+            outline: none;
+        }
+
+    

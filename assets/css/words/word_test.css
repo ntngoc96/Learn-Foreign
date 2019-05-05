@@ -1,0 +1,120 @@
+*{
+    margin:0;
+    padding:0;
+    text-decoration: none;
+}
+body{
+    font-family: 'Montserrat', sans-serif !important;
+}
+.container{
+    position: relative;
+
+    height: 100vh;
+ 
+    padding:1rem 3rem;
+
+    background-image: url('../../images/words/quiz.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.header{
+    padding:3rem;
+    padding-bottom:2rem;
+
+    user-select: none;
+}
+
+    .heading-primary{
+        text-transform: uppercase;
+        text-align: center;
+
+        letter-spacing: 3px;
+        
+        font-size:3rem;
+        font-weight: 700 !important;
+
+        color:#fff;
+    }
+
+    
+
+.section-quiz{
+    padding:2rem 10rem;
+    
+}
+    .heading-tertiary{
+        color:#983b3b;  
+    }
+
+    .answers{
+        width:50%;
+
+        margin:.4rem 0;
+        padding-left:1rem;
+
+        border-radius: 20px;
+
+    }
+
+            .form__label{
+                margin-left:.5rem;
+
+                color:#c2ffd9;
+            }
+    
+    .btn--finish{
+        margin-top:3rem;
+        
+    }
+    
+    .red{
+        background-color: #ff00008f;
+    }
+
+    .green{
+        background-color: #008000c9;
+    }
+
+    .popup{
+        position: fixed;
+        top:100%;
+        left:50%;
+        transform: translate(-50%,0);
+
+        text-align: center;
+
+        padding: 5rem 5rem;
+
+        background-color:rgba(161, 253, 216, 0.8);
+        border:1px solid #d685bd;
+        border-radius: 5px;
+        color:#000;
+
+        transition:400ms;
+        
+    }
+
+    .popup > div {
+        margin-bottom:1.5rem;
+
+    }
+
+        .popup__header{
+            font-size: 2rem;
+        }
+
+        .btn-close{
+
+            margin-top:2rem;
+
+            padding: .8rem 2rem;
+            
+            color: white;
+            background: rgb(2,0,36);
+            background: linear-gradient(87deg, rgba(2,0,36,1) 0%, 
+                                                rgb(106, 152, 158) 0%, 
+                                                rgb(134, 141, 162) 53%,
+                                                rgb(64, 63, 64) 96%);
+                                    }
+
+

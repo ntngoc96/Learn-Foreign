@@ -1,0 +1,59 @@
+
+.btn--gradient{
+    text-transform: uppercase;
+    font-size:.75rem;
+    font-weight:400;
+
+    color: white;
+
+    background: rgb(2,0,36);
+    background: linear-gradient(87deg, rgba(2,0,36,1) 0%, rgba(0,225,255,1) 0%, rgba(82,123,244,1) 53%, rgba(133,28,194,1) 96%);
+}
+
+.btn{
+    border:none;
+    border-radius: 100px;
+    padding: .8rem .6rem;
+}
+
+.btn:active{
+    outline:none;
+}
+
+.btn--gray{
+    background-color: rgba(16, 6, 2, 0.15);
+    color:#cfff04;
+
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700 !important;
+    
+    padding: 1rem 3rem !important;
+
+    outline: none;
+    border:1px solid rgb(106,180,255) !important;
+}
+
+.btn--light{
+    font-family: 'Montserrat', sans-serif !important;
+    
+    padding: .6rem 2rem !important;
+    
+    background: rgb(2,0,36);
+    background: linear-gradient(87deg, rgba(2,0,36,1) 0%, rgba(223, 170, 228, 0.66) 0%, rgba(222, 132, 245, 0.84) 53%, rgba(255, 99, 208, 0.8) 96%);
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); }
+    .btn:hover::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0; }
+  
+  .btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); }
+  
+.btn--animation {
+    animation: moveBottom 1s ease 0.75s;
+    animation-fill-mode: backwards; }
+      
