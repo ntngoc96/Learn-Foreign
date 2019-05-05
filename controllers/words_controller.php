@@ -62,6 +62,63 @@
             }
         }
 
+        public function getDetail(){
+            $word = ModelWord::find($_GET['id']);
+            if(!empty($word)){
+                    echo <<<_RENDER_WORD_DETAIL
+                    <div class="popup__word-detail">
+                        <div class="word"> 
+                            <span>{$word['Word']}</span>
+                        </div>
+                        <div class="image">
+                            <img src={$word['Image']} width="160" />
+                        </div>
+                        <div class="describe">
+                            <table class="table__describe">
+                                <tr>
+                                    <th>Example:</th>
+                                    <td id="example">
+                                        <div class="example">{$word['Example']} </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Word Form:</th>
+                                    <td id="wordform">
+                                        <div class="wordform">{$word['WordForm']} </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Pronounce:</th>
+                                    <td id="pronounce">
+                                        <div class="pronounce">{$word['Pronounce']} </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Kanji:</th>
+                                    <td id="kanji">
+                                        <div class="kanji">{$word['Kanji']} </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Meaning:</th>
+                                    <td id="meaning">
+                                        <div class="meaning">{$word['Meaning']} </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <audio controls="" class="audio__describe>
+                            <source src={$word['Sound']} type="audio/ogg"/>
+                            <source src={$word['Sound']} type="audio/mpeg"/>
+                        </audio>
+                        <a href="#" class="btn--close">&nbsp;&nbsp;X&nbsp;&nbsp;</a>
+                    </div>
+_RENDER_WORD_DETAIL;
+            } else {
+                echo 'word is not exist or deleted';
+            }
+        }
+
         public function render_updateWord(){
             if(!isset($_SESSION['userid'])){
                 header('Location: index.php?controller=account&action=render_login&type=signin');
@@ -191,3 +248,4 @@
 
     }
 ?>
+

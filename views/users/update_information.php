@@ -106,7 +106,37 @@ _RENDER_MALE;
                     <label class="form__label">
                         School Id
                     </label>
-                    <input class="form__input" type="text" value="<?php if(!empty($user)){ echo $user->SchoolId; }?>" name="school_id">
+                    <select name="school_id" id="school_id">
+
+                        <?php 
+                            if(!empty($user->SchoolId)){
+                                echo "<option value={$user->SchoolId}>
+                                        {$user->SchoolId} - {$user->SchoolName}
+                                    </option>";
+                                echo <<<_RENDER_SCHOOL_ID
+                                foreach ($schools as $school) {
+                                    <option value={$school->SchoolId}>
+                                        {$schools->SchoolId} - {$schools->SchoolName}
+                                    </option>
+                                }
+_RENDER_SCHOOL_ID;
+                            } else {
+                                echo "<option value=''>
+                                    &nbsp;&nbsp;&nbsp;
+                                    </option>";
+                                echo "<option value={$schools['0']->SchoolId}>
+                                {$schools['0']->SchoolId} - {$schools['0']->SchoolName}
+                                </option>";
+                                foreach ($schools as $school) {
+                                echo <<<_RENDER_SCHOOL_ID
+                                    <option value={$school->SchoolId}>
+                                        {$school->SchoolId} - {$school->SchoolName}
+                                    </option>
+_RENDER_SCHOOL_ID;
+                                }
+                            }
+                            ?>
+                    </select>
                 </div>
                 <div class="form__group">
                     

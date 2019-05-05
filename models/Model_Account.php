@@ -39,19 +39,19 @@
     static function login($id){
         require_once('configuration.php');
         $sqlLogin = 'SELECT * FROM Account JOIN User ON Account.AccountId LIKE User.AccountId WHERE Account.AccountId LIKE :id';
-        $placeholder = [
+        $data = [
             ':id'=>$id
         ];
         
         try{
             $req = $db->prepare($sqlLogin);
             
-            $req->execute($placeholder);
+            $req->execute($data);
             $result = $req->fetch();
-            echo '<pre>';
-                echo $id;
-                print_r($result);
-            echo '</pre>';
+            // echo '<pre>';
+            //     echo $id;
+            //     print_r($result);
+            // echo '</pre>';
             return $result;
         } catch (PDOException $e) {
             print $e->getMessage ();
