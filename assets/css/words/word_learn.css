@@ -48,9 +48,11 @@ body{
         }
 
         .container .wrapper{
-            height: 300px;
-            width: 350px;
-            margin:auto;
+            height: auto;
+            width: 22rem;
+            margin:0 auto;
+
+            position: relative;
 
             color:#DBE9EF;
             background: rgb(33,91,116);
@@ -97,7 +99,7 @@ body{
 
             .wrapper .word span{
                 color:#5B616A;
-                font-size:30px;
+                font-size:1.9rem;
                 transition:300ms;
             }
                 .wrapper:hover > .word{
@@ -107,26 +109,31 @@ body{
 
                 .wrapper:hover .word span{
                     font-weight: 500;
-                    font-size:40px;
+                    font-size:2.5rem;
                     color:orangered;
                     text-shadow: rgb(253, 128, 82);
                 }
                 .wrapper:hover{
-                    width: 500px;
+                    width: 32rem;
                 }
+
+                /* .wrapper:hover audio{
+                    position: relative;
+                    transform: translateX(0);
+                } */
 
             
             .wrapper .image{
                 margin-top:4rem;
             }
                 .image img{
-                    max-height:110px;
+                    max-height:7rem;
                 }
 
             /* example too long to display so we must hidden overflow */
             /* i just use overflow with div tag i cannot use with td or tr or table */
             .describe table .example{
-                height:20px;
+                height:1.3rem;
                 overflow: hidden;
             }
 
@@ -143,7 +150,7 @@ body{
 
 
             .describe table{
-                font-size:13px;
+                font-size:.8rem;
                 
             }
 
@@ -155,9 +162,9 @@ body{
             .wrapper button{
                 text-align: center;
                 margin-top: .3rem;
-                width: 200px;
+                width: 12.5rem;
                 padding: .5rem 1rem;
-                border-radius:10px;
+                border-radius:.6rem;
                 border:none;
                 outline:none;
                 background-color: #4CE0D2;
@@ -185,7 +192,8 @@ body{
 
         .wrapper audio{
             transform: scale(.6);
-            width:300px;
+            width:20rem;
+            height:2.5rem;
         }
     
     .btn--value{

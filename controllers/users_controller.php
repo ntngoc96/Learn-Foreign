@@ -2,6 +2,7 @@
     session_start();
     require_once('controllers/base_controller.php');
     require_once('models/Model_User.php');
+    require_once('models/Model_School.php');
 
     class UsersController extends BaseController{
         function __construct(){
@@ -50,7 +51,12 @@
                 header('Location: index.php?controller=account&action=render_login&type=signin');
             } else {
                 $user = ModelUser::find($_SESSION['userid']);
-                $data = array('user'=>$user);
+                $school = ModelSchool::getAll();
+                $data = array('user' => $user,'schools'=>$school);
+            //     echo '<pre>';
+            // echo 'session is0;';
+            // print_r($data);
+            // echo '</pre>';
                 $this->render('update_information',$data);
             }
         }
@@ -68,9 +74,10 @@
                     move_uploaded_file($_FILES['avatar']['tmp_name'],$path);
                     //handle sql exception
                     ModelUser::update($_SESSION['userid'],$_POST['full_name'],$_POST['dob'],$_POST['gender'],$_POST['address'],$_POST['school_id'],$path);
-
+                    
                     $user = ModelUser::find($_SESSION['userid']);
-                    $data = array('user' => $user);
+                    $school = ModelSchool::getAll();
+                    $data = array('user' => $user,'schools'=>$school);
 
                     $this->render('user_information',$data);
                 } else {

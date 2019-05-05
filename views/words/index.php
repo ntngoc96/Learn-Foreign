@@ -1,23 +1,5 @@
 <?php
-// echo '<ul>';
-// foreach ($words as $word) {
-//   echo '<li>
-//     <a href="#">' . $word->Word . '</a>
-//   </li>';
-// }
-// echo '</ul>';
-?>
-
-<?php
-    // include '../check_session.php';
-    // if(!hasSession('userid')){
-    //     redirectTo('../html/login.html');
-    // }
-
-    // require '../config/sql.php';
     $GLOBALS['count'] = 0;
-
-
 ?>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/components/button.css">
@@ -50,7 +32,7 @@
                                     </td>
                                     <td>
                                         
-                                        <label href="#" class="table__label" for="table__show">Detail</label>
+                                        <label href="#" class="table__label" data={$word->WordId} id="get-detail-ajax" for="table__show">Detail</label>
                                         <input type="checkbox" name="show{$GLOBALS['count'] }" id="table__show">
                                         <a href="index.php?controller=words&action=render_updateWord&id={$word->WordId}" class="table__link">Update</a>
                                         <a href="index.php?controller=words&action=deleteWord&id={$word->WordId}" class="table__link">Delete</a>
@@ -90,7 +72,11 @@ _RENDER_MORE;
                 <a href="index.php?controller=users&action=findById&id=<?php echo $_SESSION['userid'];?>" class="link__items">Back to profile</a>
             </div>
         </section>
+        <div id="popup">
+                      
+        </div>
+        <!-- <a href="#" class="btn--close">&nbsp;&nbsp;X&nbsp;&nbsp;</a> -->
     </div>
     <script src="assets/javascripts/words/word_index.js"></script>
 
-    
+    <!-- onclick="getDetail('index.php?controller=words&action=getDetail&id={$word->WordId}',showDetail);" -->

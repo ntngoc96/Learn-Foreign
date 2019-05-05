@@ -13,9 +13,9 @@
         }
 
         public function registerAccount(){
-            echo '<pre>';
-            print_r($_POST);
-            echo '</pre>';
+            // echo '<pre>';
+            // print_r($_POST);
+            // echo '</pre>';
             $result = ModelAccount::register($_POST['account_id'],$_POST['password']);
             if($result){
                 $this->folder= 'users';
