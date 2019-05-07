@@ -13,14 +13,13 @@
         }
 
         public function registerAccount(){
-            // echo '<pre>';
-            // print_r($_POST);
-            // echo '</pre>';
             $result = ModelAccount::register($_POST['account_id'],$_POST['password']);
             if($result){
-                $this->folder= 'users';
                 $_SESSION['userid'] = $result['UserId'];
-                $this->render('update_information');
+                header('Location: index.php?controller=users&action=render_updateInformation');
+            } else {
+                $this->folder = 'pages';
+                $this->render('error',array('error_name'=>'Cannot create more account for today'));
             }
         }
 
@@ -53,6 +52,28 @@
         public function logout(){
             unset($_SESSION['userid']);
             header('Location: index.php');
+        }
+
+        public function render_changePassword(){
+            $this->render('account_update');
+        }
+
+        public function changePassword(){
+            echo "<pre>";
+            print_r($_POST);
+            echo "<pre>";
+            echo "<pre>";
+            print_r($_SESSION);
+            echo "<pre>";
+            $old = md5($_POST['oldpassword']);
+            $new = md5($_POST['newpassword']);
+            $result = ModelAccount::changePassword($_SESSION['userid'],$old,$new);
+            if($result){
+                header('Location: index.php?controller=users&action=findById&id=' . $_SESSION['userid']);
+            } else {
+                $this->folder = 'pages';
+                $this->render('error',array('error_name'=>'Sth get wrong'));
+            }
         }
     }
 ?>

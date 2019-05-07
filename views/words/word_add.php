@@ -1,9 +1,3 @@
-<?php
-    // include '../check_session.php';
-    // if(!hasSession('userid')){
-    //     redirectTo('./login.html');
-    // }
-?>
 <link rel="stylesheet" href="assets/css/components/button.css">
 <link rel="stylesheet" href="assets/css/words/word_add.css">
     <div class="container">

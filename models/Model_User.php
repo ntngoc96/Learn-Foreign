@@ -52,10 +52,6 @@
             $req = $db->prepare($sqlFindOne);
             $req->execute(array('id' => $id));
             $item = $req->fetch();
-            // echo '<pre>';
-            // echo 'im réuklt';
-            // print_r($item);
-            // echo '</pre>';
             if(isset($item['UserId'])){
                 return new ModelUser($item['UserId'],$item['FullName'],$item['Dob']
                 ,$item['Gender'],$item['Address'],$item['School_Id'],$item['Avatar'],$item['AccountId']);
@@ -100,9 +96,6 @@
                 ':UserId'=>$_UserId
             ];
 
-            // $sqlUpdateUser = "UPDATE User
-            // SET FullName='$_FullName', Dob='$_Dob',Gender='$_Gender',Address='$_Address',School_Id='$_SchoolId',Avatar='$_path'
-            // WHERE User.UserId LIKE :UserId";
             $sqlUpdateUser = "UPDATE User
             SET FullName=:FullName, Dob=:Dob,Gender=:Gender,Address=:Address,School_Id=:SchoolId,Avatar=:Avatar
             WHERE User.UserId LIKE :UserId";

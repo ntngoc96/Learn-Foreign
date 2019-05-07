@@ -53,18 +53,10 @@
                 $user = ModelUser::find($_SESSION['userid']);
                 $school = ModelSchool::getAll();
                 $data = array('user' => $user,'schools'=>$school);
-            //     echo '<pre>';
-            // echo 'session is0;';
-            // print_r($data);
-            // echo '</pre>';
                 $this->render('update_information',$data);
             }
         }
         public function updateInformation(){
-            // echo '<pre>';
-            // echo 'session is0;';
-            // print_r($_SESSION);
-            // echo '</pre>';
             if(!isset($_SESSION['userid'])){
                 header('Location: index.php?controller=account&action=render_login&type=signin');
             } else {

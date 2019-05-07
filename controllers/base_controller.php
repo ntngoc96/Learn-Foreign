@@ -4,10 +4,6 @@
 
         function render($file,$data = array()){
             $view_file = 'views/' . $this->folder . '/' . $file . '.php';
-            // echo $view_file;
-            // echo '<pre> before extract';
-            // print_r($view_file);
-            // echo '</pre>';
             if(is_file($view_file)){
                 extract($data);
                 /*
@@ -23,7 +19,7 @@
                 */
                 require_once('views/layouts/application.php');
             } else {
-                // header('Location: index.php?controller=pages&action=error');
+                header('Location: index.php?controller=pages&action=error');
             }
 
         }

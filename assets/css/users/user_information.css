@@ -91,3 +91,40 @@ body{
 
         padding-left:1rem;
     }
+
+.section-information{
+    margin-bottom:1rem;
+}
+
+.footer{
+    text-align: center;
+
+    padding: 2rem 3rem;
+    border:1px solid black;
+
+    background-color: white;
+
+}
+    .footer > *:not(:last-child){
+        margin-bottom:1rem;
+    }
+    .footer__item{
+        display:inline-block;
+        width:3rem;
+        height:3rem;
+
+        line-height: 3rem;  
+
+        background-color: rgba(0, 0, 0, 0.644);
+        border-radius: 50%;
+    }
+
+    .footer__link{
+        font-size:1.5rem;
+
+        color:white;
+    }
+
+    .footer__item:not(:last-child){
+        margin-right:1rem;
+    }

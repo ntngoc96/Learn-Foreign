@@ -75,8 +75,5 @@ _RENDER_MORE;
         <div id="popup">
                       
         </div>
-        <!-- <a href="#" class="btn--close">&nbsp;&nbsp;X&nbsp;&nbsp;</a> -->
     </div>
     <script src="assets/javascripts/words/word_index.js"></script>
-
-    <!-- onclick="getDetail('index.php?controller=words&action=getDetail&id={$word->WordId}',showDetail);" -->

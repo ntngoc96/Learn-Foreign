@@ -15,10 +15,6 @@
                 $words = ModelWord::all($_SESSION['userid']);
                 if(count($words) > 0){
                     $data = array('words'=>$words);
-                    // echo '<pre>';
-                    // echo 'print';   
-                    // print_r($data);
-                    // echo '</pre>';
                     $this->render('index',$data);
                 } else {
                     $this->render('word_add');
@@ -36,9 +32,6 @@
         }
 
         public function addWord(){
-            // echo '<pre>';
-            // print_r($_POST);
-            // echo '</pre>';
 
             if(!isset($_SESSION['userid'])){
                 header('Location: index.php?controller=account&action=render_login&type=signin');
@@ -56,8 +49,13 @@
                 $newWord = new ModelWord($WordId,$_POST['word'],$_POST['wordform'],$_POST['kanji'],
                                             $_POST['pronounce'],$_POST['meaning'],$_POST['example'],$path,$pathSound,$_SESSION['userid']);
 
-                $newWord->add();
-                header('Location: index.php?controller=words');
+                $result = $newWord->add();
+                if($result){
+                    header('Location: index.php?controller=words');
+                } else {
+                    $this->folder = 'pages';
+                    $this->render('error',array('error_name'=>'You can just add 50 words per day'));
+                }
 
             }
         }
@@ -190,9 +188,6 @@ _RENDER_WORD_DETAIL;
             if(!isset($_SESSION['userid'])){
                 header('Location: index.php?controller=account&action=render_login&type=signin');
             } else {
-                // echo '<pre>';
-                // print_r($_POST);
-                // echo '</pre>';
                 $listWordId = "'";
                 $listWords = [];
                 $listAllWords = [];
@@ -213,10 +208,6 @@ _RENDER_WORD_DETAIL;
                 foreach ($listWords as $word) {
                     //add new key to obj
                     $word = (object) array_merge( (array)$word, array( 'isCorrect' => 'true' ) );
-                    // echo '<pre>';
-                    // echo 'word';
-                    // print_r($word);
-                    // echo '</pre>';
                     array_push($listTemp,$word);
 
                     $temp = array_pop($listAllWords);
@@ -234,10 +225,6 @@ _RENDER_WORD_DETAIL;
                     array_push($listQuestions,$listTemp);
                     $listTemp = [];
                 }
-                // echo '<pre>';
-                // echo 'list';
-                // print_r($listQuestions);
-                // echo '</pre>';
 
                 $data = array('listQuestions' => $listQuestions);
 

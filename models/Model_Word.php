@@ -45,10 +45,6 @@
             $req = $db->prepare($sqlFindOne);
             $req->execute($data);
             $item = $req->fetch();
-            // echo '<pre>';
-            // echo 'im réuklt';
-            // print_r($item);
-            // echo '</pre>';
             if(isset($item['Word'])){
                 return $item;
             } else {
@@ -111,28 +107,51 @@
         
         public function add(){
             require_once('configuration.php');
-            $sqlAddWord = 'INSERT INTO Vocabulary(WordId,Word,WordForm,Kanji,Pronounce,Meaning,Example,Image,Sound,User_UserId)
-            VALUES (:WordId,:Word,:WordForm,:Kanji,:Pronounce,:Meaning,:Example,:Image,:Sound,:UserId);';
-
-            $data = [
-                ':WordId'=>$this->WordId,
-                ':Word'=>$this->Word,
-                ':WordForm'=>$this->WordForm,
-                ':Kanji'=>$this->Kanji,
-                ':Pronounce'=>$this->Pronounce,
-                ':Meaning'=>$this->Meaning,
-                ':Example'=>$this->Example,
-                ':Image'=>$this->Image,
-                ':Sound'=>$this->Sound,
-                ':UserId'=>$this->UserId
+            $limit = 0;
+            $date = new DateTime();
+            $today = $date->format('Y-m-d');
+            $sqlCheckLimit = 'SELECT * FROM Vocabulary WHERE DATE(DateCreate) LIKE :today AND User_UserId LIKE :userid';
+            $dataCheck = [  
+                ':today'=>$today,
+                ':userid'=>$this->UserId
             ];
-
             try {
-                $req = $db->prepare($sqlAddWord);
+                $req = $db->prepare($sqlCheckLimit);
 
-                $req->execute($data);
+                $req->execute($dataCheck);
+                $limit = $req->rowCount();
             } catch (PDOException $e) {
                 print $e->getMessage ();
+            }
+
+            if($limit < 31){
+                $sqlAddWord = 'INSERT INTO Vocabulary(WordId,Word,WordForm,Kanji,Pronounce,Meaning,Example,Image,Sound,User_UserId)
+                VALUES (:WordId,:Word,:WordForm,:Kanji,:Pronounce,:Meaning,:Example,:Image,:Sound,:UserId);';
+
+                $data = [
+                    ':WordId'=>$this->WordId,
+                    ':Word'=>$this->Word,
+                    ':WordForm'=>$this->WordForm,
+                    ':Kanji'=>$this->Kanji,
+                    ':Pronounce'=>$this->Pronounce,
+                    ':Meaning'=>$this->Meaning,
+                    ':Example'=>$this->Example,
+                    ':Image'=>$this->Image,
+                    ':Sound'=>$this->Sound,
+                    ':UserId'=>$this->UserId
+                ];
+
+                try {
+                    $req = $db->prepare($sqlAddWord);
+
+                    $req->execute($data);
+                    // echo $req->rowCount();
+                    return $req->rowCount();
+                } catch (PDOException $e) {
+                    print $e->getMessage ();
+                } 
+            } else {
+                return null;
             }
         }
         //lo tay viet argument bang camel @@ 
@@ -210,10 +229,6 @@
                     ,$item['Kanji'],$item['Pronounce'],$item['Meaning'],$item['Example'],$item['Image'],$item['Sound'],$item['User_UserId']);
                 }
 
-                // echo '<pre>';
-                // echo 'print';   
-                // print_r($listWords);
-                // echo '</pre>';
                 return $listWords;
             } catch (PDOException $e) {
                 print $e->getMessage ();
