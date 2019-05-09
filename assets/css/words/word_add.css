@@ -100,3 +100,12 @@
         top:1%;
         right:2%;
     }
+    .link__previous:link,.link__previous:visited{
+        color:#34495E;
+    }
+
+    .link__previous{
+        position: absolute;
+        top:1%;
+        left:2%;
+    }

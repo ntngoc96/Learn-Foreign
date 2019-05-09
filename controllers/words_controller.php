@@ -109,7 +109,7 @@
                             <source src={$word['Sound']} type="audio/ogg"/>
                             <source src={$word['Sound']} type="audio/mpeg"/>
                         </audio>
-                        <a href="#" class="btn--close">&nbsp;&nbsp;X&nbsp;&nbsp;</a>
+                        <span  class="btn--close">&nbsp;&nbsp;X&nbsp;&nbsp;</span>
                     </div>
 _RENDER_WORD_DETAIL;
             } else {
@@ -188,6 +188,9 @@ _RENDER_WORD_DETAIL;
             if(!isset($_SESSION['userid'])){
                 header('Location: index.php?controller=account&action=render_login&type=signin');
             } else {
+                // echo "<pre>";
+                // print_r($_POST);
+                // echo "</pre>";
                 $listWordId = "'";
                 $listWords = [];
                 $listAllWords = [];
@@ -200,7 +203,7 @@ _RENDER_WORD_DETAIL;
                 $listWordId = rtrim($listWordId,"' ");
                 $listWordId = rtrim($listWordId,", ");
                 $listWords = ModelWord::getWords($_SESSION['userid'],$listWordId);
-                $listAllWords = ModelWord::allLibrary();
+                $listAllWords = ModelWord::allLibrary($listWordId);
                 //shuffle rra
                 shuffle($listAllWords);
 
@@ -227,8 +230,135 @@ _RENDER_WORD_DETAIL;
                 }
 
                 $data = array('listQuestions' => $listQuestions);
-
+                
                 $this->render('word_test',$data);
+            }
+        }
+
+        public function getQuestion(){
+            if(!isset($_SESSION['userid'])){
+                header('Location: index.php?controller=account&action=render_login&type=signin');
+            } else {
+                $type = $_GET['type'];
+                
+                unset($_GET['controller']);
+                unset($_GET['action']);
+                unset($_GET['type']);
+
+                $listWordId = "'";
+                $listWords = [];
+                $listAllWords = [];
+                $listQuestions = [];
+                $listTemp = [];
+                //make wordid string set
+                foreach ($_GET as $item) {
+                    $listWordId .= $item . "','";
+                }
+                $listWordId = rtrim($listWordId,"' ");
+                $listWordId = rtrim($listWordId,", ");
+
+                $listWords = ModelWord::getWords($_SESSION['userid'],$listWordId);
+                $listAllWords = ModelWord::allLibrary($listWordId);
+                //shuffle rra
+                shuffle($listAllWords);
+
+                
+                foreach ($listWords as $word) {
+                    //add new key to obj
+                    $word = (object) array_merge( (array)$word, array( 'isCorrect' => 'true' ) );
+                    array_push($listTemp,$word);
+
+                    $temp = array_pop($listAllWords);
+                    $temp = (object) array_merge( (array)$temp, array( 'isCorrect' => 'false' ) );
+                    array_push($listTemp,$temp);
+
+                    $temp = array_pop($listAllWords);
+                    $temp = (object) array_merge( (array)$temp, array( 'isCorrect' => 'false' ) );
+                    array_push($listTemp,$temp);
+
+                    $temp = array_pop($listAllWords);
+                    $temp = (object) array_merge( (array)$temp, array( 'isCorrect' => 'false' ) );
+                    array_push($listTemp,$temp);
+
+                    array_push($listQuestions,$listTemp);
+                    $listTemp = [];
+                }
+
+                switch ($type) {
+                    case 'meaning':
+                        $order = 1;
+                        $multiple = 65;
+                        echo "<form action='index.php?controller=words&action=getQuestion' class='form-quiz'>";
+                        foreach ($listQuestions as $question) {
+                            echo "<h3 class='heading-tertiary'>" . $order ." . What is meaning of " . $question[0]->Word ."</h3>";
+                            echo "<input type=hidden value='" . $question[0]->WordId . "'/>";
+                            shuffle($question);
+                            foreach ($question as $miniquestion) {
+                                $value = chr($multiple++) . ". " . $miniquestion->Meaning;
+                                echo <<<_RENDER_QUESTION
+                                <div class="answers">
+                                    <input class='form__input' type='radio' name={$order} id={$order}{$multiple} value={$miniquestion->isCorrect} />
+                                    <label class="form__label" for={$order}{$multiple} > {$value} </label>
+                                </div>
+_RENDER_QUESTION;
+                                    }
+                            $order++;    
+                            $multiple = 65;
+                }
+                        echo "<input type='submit' class='btn btn--gray btn--finish' value='Finish Test'>";
+                        echo "</form>";
+                        break;
+                    case 'pronounce':
+                        $order = 1;
+                        $multiple = 65;
+                        echo "<form action='index.php?controller=words&action=getQuestion' class='form-quiz'>";
+                        foreach ($listQuestions as $question) {
+                            echo "<h3 class='heading-tertiary'>" . $order ." . What is Pronounce of " . $question[0]->Word ."</h3>";
+                            echo "<input type=hidden value='" . $question[0]->WordId . "'/>";
+                            shuffle($question);
+                            foreach ($question as $miniquestion) {
+                                $value = chr($multiple++) . ". " . $miniquestion->Pronounce;
+                                echo <<<_RENDER_QUESTION
+                                <div class="answers">
+                                    <input class='form__input' type='radio' name={$order} id={$order}{$multiple} value={$miniquestion->isCorrect} />
+                                    <label class="form__label" for={$order}{$multiple} > {$value} </label>
+                                </div>
+_RENDER_QUESTION;
+                                }
+                        $order++;    
+                        $multiple = 65;
+            }
+                        echo "<input type='submit' class='btn btn--gray btn--finish' value='Finish Test'>";
+                        echo "</form>";
+                        break;
+                    case 'kanji':
+                        $order = 1;
+                        $multiple = 65;
+                        echo "<form action='index.php?controller=words&action=getQuestion' class='form-quiz'>";
+                        foreach ($listQuestions as $question) {
+                            echo "<h3 class='heading-tertiary'>" . $order ." . What is Kanji of " . $question[0]->Word ."</h3>";
+                            echo "<input type=hidden value='" . $question[0]->WordId . "'/>";
+                            shuffle($question);
+                            foreach ($question as $miniquestion) {
+                                $value = chr($multiple++) . ". " . $miniquestion->Kanji;
+                                echo <<<_RENDER_QUESTION
+                                <div class="answers">
+                                    <input class='form__input' type='radio' name={$order} id={$order}{$multiple} value={$miniquestion->isCorrect} />
+                                    <label class="form__label" for={$order}{$multiple} > {$value} </label>
+                                </div>
+_RENDER_QUESTION;
+                                }
+                        $order++;    
+                        $multiple = 65;
+            }
+                        echo "<input type='submit' class='btn btn--gray btn--finish' value='Finish Test'>";
+                        echo "</form>";
+                        break;
+                    
+                    default:
+                        echo "<h1>Error</h1>";
+                        break;
+                }
             }
         }
 

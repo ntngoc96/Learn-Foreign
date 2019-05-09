@@ -27,14 +27,20 @@
             <h1 class="heading-primary">
                 grammar quiz
             </h1>
+            <select name="type" id="type">
+                <option value="meaning">Meaning</option>
+                <option value="pronounce">Pronounce</option>
+                <option value="kanji">Kanji</option>
+            </select>
         </header>
         <section class="section-quiz">
-            <form action="" class="form-quiz">
+            <form action="index.php?controller=words&action=getQuestion" class="form-quiz">
                 <?php
                 $order = 1;
                 $multiple = 65;
                 foreach ($listQuestions as $question) {
                     echo "<h3 class='heading-tertiary'>" . $order ." . What is meaning of " . $question[0]->Word ."</h3>";
+                    echo "<input type=hidden value='" . $question[0]->WordId . "'/>";
                         shuffle($question);
                         foreach ($question as $miniquestion) {
                             $value = chr($multiple++) . ". " . $miniquestion->Meaning;

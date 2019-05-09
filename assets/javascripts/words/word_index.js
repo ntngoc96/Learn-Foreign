@@ -38,7 +38,6 @@ document.addEventListener("DOMContentLoaded",function(){
         let btnClose = document.querySelector('.btn--close');
         let PopupDetail = document.querySelector('.popup__word-detail')
         btnClose.addEventListener('click',()=>{
-            console.log('oke')
             PopupDetail.remove('.popup__word-detail');
             })
     }

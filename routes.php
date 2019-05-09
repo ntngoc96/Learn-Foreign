@@ -3,7 +3,7 @@
         'pages' => ['home','error'],
         'users' => ['index','findById','render_updateInformation','updateInformation'],
         'account' => ['index','registerAccount','render_login','loginAccount','logout','render_changePassword','changePassword'],
-        'words' => ['index','render_addWord','addWord','makeTest','getDetail','render_updateWord','updateWord','deleteWord','learn']
+        'words' => ['index','render_addWord','addWord','makeTest','getDetail','render_updateWord','updateWord','deleteWord','learn','getQuestion']
     ); //list of controllers
 
     if(!array_key_exists($controller,$controllers) || 

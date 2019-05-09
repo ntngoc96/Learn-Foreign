@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="assets/css/words/word_add.css">
     <div class="container">
         <a href="index.php?controller=account&action=logout" class="link__logout">Log out</a>
+        <a href="index.php?controller=users&action=findById&id=<?php echo $_SESSION['userid']; ?>" class="link__previous">Back to profile</a>
         <section class="section-add-word">
             <div class="form__group form__heading">
                 <h2 class="form__heading-primary">

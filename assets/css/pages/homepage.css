@@ -23,6 +23,8 @@
         text-align:center;
         
         z-index: 999;
+
+        user-select: none;
     }
 
         .h1{

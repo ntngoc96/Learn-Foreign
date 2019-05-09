@@ -80,11 +80,11 @@
 
         }
 
-        static function allLibrary(){
+        static function allLibrary($wordsid){
             $listWords = [];
             $db = DB::getInstance();
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sqlSelectAllWords = 'SELECT * FROM Vocabulary';
+            $sqlSelectAllWords = "SELECT * FROM Vocabulary WHERE WordId NOT IN ($wordsid)";
 
             //using placeholder to keep a sit. It help to avoid SQL Injection attack
             try {

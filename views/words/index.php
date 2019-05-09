@@ -32,8 +32,8 @@
                                     </td>
                                     <td>
                                         
-                                        <label href="#" class="table__label" data={$word->WordId} id="get-detail-ajax" for="table__show">Detail</label>
-                                        <input type="checkbox" name="show{$GLOBALS['count'] }" id="table__show">
+                                        <label class="table__label" data={$word->WordId} id="get-detail-ajax" for="table__show{$GLOBALS['count'] }">Detail</label>
+                                        <input type="checkbox" name="show{$GLOBALS['count'] }" id="table__show{$GLOBALS['count'] }" class="table__show">
                                         <a href="index.php?controller=words&action=render_updateWord&id={$word->WordId}" class="table__link">Update</a>
                                         <a href="index.php?controller=words&action=deleteWord&id={$word->WordId}" class="table__link">Delete</a>
                                     </td>

@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function(){
     var leftArrow = document.querySelectorAll('.left');
     var rightArrow = document.querySelectorAll('.right');
     var wrapper = document.querySelectorAll('.wrapper');
-
+   
     // console.log(leftArrow,'right',rightArrow,'wrapper',wrapper);
     for(x of rightArrow){
         x.addEventListener('click',()=>{

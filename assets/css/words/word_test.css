@@ -18,6 +18,9 @@ body{
     background-position: center;
 }
 .header{
+
+    position: relative;
+    
     padding:3rem;
     padding-bottom:2rem;
 
@@ -34,6 +37,12 @@ body{
         font-weight: 700 !important;
 
         color:#fff;
+    }
+
+    #type{
+        position: absolute;
+        top: 100%;
+        right: 20%;
     }
 
     
