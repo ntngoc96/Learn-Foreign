@@ -1,6 +1,6 @@
 <?php
     $controllers = array(
-        'pages' => ['home','error'],
+        'pages' => ['home','error','aboutUs'],
         'users' => ['index','findById','render_updateInformation','updateInformation'],
         'account' => ['index','registerAccount','render_login','loginAccount','logout','render_changePassword','changePassword'],
         'words' => ['index','render_addWord','addWord','makeTest','getDetail','render_updateWord','updateWord','deleteWord','learn','getQuestion']

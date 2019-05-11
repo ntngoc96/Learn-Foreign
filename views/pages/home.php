@@ -4,7 +4,8 @@
 <div class="container">
     <div class="header">
         <h1 class="h1">Welcome to Future Land </h1>
-        <h3 class="h2">Learning Japanese Tool </h3>
+        <h2 class="h2">Learning Japanese Tool </h2>
+        <h3 class="h3">This application helps you learn new vocabulary in a flexible and creative way.</h3>
     </div>
     <div class="slide-image"><i class="fas fa-angle-left left" id="left"></i>
         <div class="slide-box">
@@ -24,6 +25,7 @@
     </div>
     <div class="direct">
         <a class="btn btn--dark" href="index.php?controller=account&action=render_login&type=signup">Join now</a>
+        <a class="btn btn--dark" href="index.php?controller=pages&action=aboutUs">About us</a>
     </div>
 </div>
 <script src="assets/javascripts/homepages/homepage.js"></script>

@@ -31,6 +31,12 @@
             margin-top:2rem;    
         }
 
+        .h3{
+            margin-top:3rem;
+            
+            color:#e6e6e6e6;
+        }
+
         .slide-image .left,.slide-image .right{
             position: absolute;
             top:50%;
@@ -109,7 +115,7 @@
         }
 
     .container .direct{
-        margin: 10rem;
+        margin: 7rem;
         
         position: relative;
         

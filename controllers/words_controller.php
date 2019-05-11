@@ -133,12 +133,16 @@ _RENDER_WORD_DETAIL;
                 header('Location: index.php?controller=account&action=render_login&type=signin');
             } else {
                 $listWordId = "'";
-                $path = "assets/images/words/" . $_FILES['image']['name'];
+                $pathImage = "assets/images/words/" . $_FILES['image']['name'];
 
-                move_uploaded_file($_FILES['image']['tmp_name'],$path);
+                $pathSound = "assets/sounds/words/" . $_FILES['sound']['name'];
+
+                move_uploaded_file($_FILES['image']['tmp_name'],$pathImage);
+
+                move_uploaded_file($_FILES['sound']['tmp_name'],$pathSound);
 
                 $result = ModelWord::update($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
-                ,$_POST['meaning'],$_POST['example'],$path,'add late');
+                ,$_POST['meaning'],$_POST['example'],$pathImage,$pathSound,$_SESSION['userid']);
                 if($result){
                     header('Location: index.php?controller=words');
                 } else {

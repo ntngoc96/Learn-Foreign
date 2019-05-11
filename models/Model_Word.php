@@ -84,7 +84,7 @@
             $listWords = [];
             $db = DB::getInstance();
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sqlSelectAllWords = "SELECT * FROM Vocabulary WHERE WordId NOT IN ($wordsid)";
+            $sqlSelectAllWords = "SELECT * FROM Vocabulary WHERE WordId NOT IN ($wordsid) AND Kanji NOT LIKE ''";
 
             //using placeholder to keep a sit. It help to avoid SQL Injection attack
             try {
@@ -126,7 +126,8 @@
 
             if($limit < 31){
                 $sqlAddWord = 'INSERT INTO Vocabulary(WordId,Word,WordForm,Kanji,Pronounce,Meaning,Example,Image,Sound,User_UserId)
-                VALUES (:WordId,:Word,:WordForm,:Kanji,:Pronounce,:Meaning,:Example,:Image,:Sound,:UserId);';
+                VALUES (:WordId,:Word,:WordForm,:Kanji,:Pronounce,:Meaning,:Example,:Image,:Sound,:UserId);INSERT INTO VocabularyLibrary(WordId,Word,WordForm,Kanji,Pronounce,Meaning,Example,Image,Sound,User_UserId)
+                VALUES (:WordId,:Word,:WordForm,:Kanji,:Pronounce,:Meaning,:Example,:Image,:Sound,:UserId)';
 
                 $data = [
                     ':WordId'=>$this->WordId,
@@ -155,7 +156,7 @@
             }
         }
         //lo tay viet argument bang camel @@ 
-        static function update($WordId,$Word,$WordForm,$Kanji,$Pronounce,$Meaning,$Example,$Image,$Sound){
+        static function update($WordId,$Word,$WordForm,$Kanji,$Pronounce,$Meaning,$Example,$Image,$Sound,$UserId){
             echo $WordForm;
             require_once('configuration.php');
             // $sqlUpdateUser = "UPDATE User
@@ -163,18 +164,21 @@
             // WHERE User.UserId LIKE :UserId";
             $sqlUpdateWord = 'UPDATE Vocabulary 
             SET Word=:Word,WordForm=:WordForm,Kanji=:Kanji,Pronounce=:Pronounce,Meaning=:Meaning,Example=:Example,Image=:Image,Sound=:Sound
-            WHERE WordId LIKE :WordId';
+            WHERE WordId LIKE :WordId AND User_UserId LIKE :UserId;UPDATE VocabularyLibrary 
+            SET Word=:Word,WordForm=:WordForm,Kanji=:Kanji,Pronounce=:Pronounce,Meaning=:Meaning,Example=:Example,Image=:Image,Sound=:Sound
+            WHERE WordId LIKE :WordId AND User_UserId LIKE :UserId';
 
             $data = [
-                'Word'=>$Word,
-                'WordForm'=>$WordForm,
-                'Kanji'=>$Kanji,
-                'Pronounce'=>$Pronounce,
-                'Meaning'=>$Meaning,
-                'Example'=>$Example,
-                'Image'=>$Image,
-                'Sound'=>$Sound,
-                'WordId'=>$WordId
+                ':Word'=>$Word,
+                ':WordForm'=>$WordForm,
+                ':Kanji'=>$Kanji,
+                ':Pronounce'=>$Pronounce,
+                ':Meaning'=>$Meaning,
+                ':Example'=>$Example,
+                ':Image'=>$Image,
+                ':Sound'=>$Sound,
+                ':WordId'=>$WordId,
+                ':UserId'=>$UserId
             ];
 
             try {

@@ -49,7 +49,7 @@ _RENDER_INFORMATION;
         </div>
         <div class="footer__list">
             <li class="footer__item"><a href="https://www.facebook.com/twelveeee" target="_blank" class="footer__link"><i class="fab fa-facebook-f"></i></a></li>
-            <li class="footer__item"><a href="https://github.com/ntngoc96" target="_blank" class="footer__link"><i class="fab fa-github"></i></a></li>
+            <li class="footer__item"><a href="https://github.com/" target="_blank" class="footer__link"><i class="fab fa-github"></i></a></li>
             <li class="footer__item"><a href="https://twitter.com/?lang=vi" target="_blank" class="footer__link"><i class="fab fa-twitter"></i></a></li>
             <li class="footer__item"><a href="https://www.linkedin.com/" target="_blank" class="footer__link"><i class="fab fa-linkedin-in"></i></a></li>
         </div>
