@@ -157,7 +157,6 @@
         }
         //lo tay viet argument bang camel @@ 
         static function update($WordId,$Word,$WordForm,$Kanji,$Pronounce,$Meaning,$Example,$Image,$Sound,$UserId){
-            echo $WordForm;
             require_once('configuration.php');
             // $sqlUpdateUser = "UPDATE User
             // SET FullName=:FullName, Dob=:Dob,Gender=:Gender,Address=:Address,School_Id=:SchoolId,Avatar=:Avatar
@@ -177,6 +176,107 @@
                 ':Example'=>$Example,
                 ':Image'=>$Image,
                 ':Sound'=>$Sound,
+                ':WordId'=>$WordId,
+                ':UserId'=>$UserId
+            ];
+
+            try {
+                $req = $db->prepare($sqlUpdateWord);
+
+                $req->execute($data);
+                return $req->rowCount();
+            } catch (PDOException $e) {
+                print $e->getMessage ();
+                return null;
+            }
+            
+        }
+        static function updateWithoutImage($WordId,$Word,$WordForm,$Kanji,$Pronounce,$Meaning,$Example,$Sound,$UserId){
+            require_once('configuration.php');
+            // $sqlUpdateUser = "UPDATE User
+            // SET FullName=:FullName, Dob=:Dob,Gender=:Gender,Address=:Address,School_Id=:SchoolId,Avatar=:Avatar
+            // WHERE User.UserId LIKE :UserId";
+            $sqlUpdateWord = 'UPDATE Vocabulary 
+            SET Word=:Word,WordForm=:WordForm,Kanji=:Kanji,Pronounce=:Pronounce,Meaning=:Meaning,Example=:Example,Sound=:Sound
+            WHERE WordId LIKE :WordId AND User_UserId LIKE :UserId;UPDATE VocabularyLibrary 
+            SET Word=:Word,WordForm=:WordForm,Kanji=:Kanji,Pronounce=:Pronounce,Meaning=:Meaning,Example=:Example,Sound=:Sound
+            WHERE WordId LIKE :WordId AND User_UserId LIKE :UserId';
+
+            $data = [
+                ':Word'=>$Word,
+                ':WordForm'=>$WordForm,
+                ':Kanji'=>$Kanji,
+                ':Pronounce'=>$Pronounce,
+                ':Meaning'=>$Meaning,
+                ':Example'=>$Example,
+                ':Sound'=>$Sound,
+                ':WordId'=>$WordId,
+                ':UserId'=>$UserId
+            ];
+
+            try {
+                $req = $db->prepare($sqlUpdateWord);
+
+                $req->execute($data);
+                return $req->rowCount();
+            } catch (PDOException $e) {
+                print $e->getMessage ();
+                return null;
+            }
+            
+        }
+        static function updateWithoutSound($WordId,$Word,$WordForm,$Kanji,$Pronounce,$Meaning,$Example,$Image,$UserId){
+            require_once('configuration.php');
+            // $sqlUpdateUser = "UPDATE User
+            // SET FullName=:FullName, Dob=:Dob,Gender=:Gender,Address=:Address,School_Id=:SchoolId,Avatar=:Avatar
+            // WHERE User.UserId LIKE :UserId";
+            $sqlUpdateWord = 'UPDATE Vocabulary 
+            SET Word=:Word,WordForm=:WordForm,Kanji=:Kanji,Pronounce=:Pronounce,Meaning=:Meaning,Example=:Example,Image=:Image
+            WHERE WordId LIKE :WordId AND User_UserId LIKE :UserId;UPDATE VocabularyLibrary 
+            SET Word=:Word,WordForm=:WordForm,Kanji=:Kanji,Pronounce=:Pronounce,Meaning=:Meaning,Example=:Example,Image=:Image
+            WHERE WordId LIKE :WordId AND User_UserId LIKE :UserId';
+
+            $data = [
+                ':Word'=>$Word,
+                ':WordForm'=>$WordForm,
+                ':Kanji'=>$Kanji,
+                ':Pronounce'=>$Pronounce,
+                ':Meaning'=>$Meaning,
+                ':Example'=>$Example,
+                ':Image'=>$Image,
+                ':WordId'=>$WordId,
+                ':UserId'=>$UserId
+            ];
+
+            try {
+                $req = $db->prepare($sqlUpdateWord);
+
+                $req->execute($data);
+                return $req->rowCount();
+            } catch (PDOException $e) {
+                print $e->getMessage ();
+                return null;
+            }
+            
+        }
+        static function updateWithoutImageAndSound($WordId,$Word,$WordForm,$Kanji,$Pronounce,$Meaning,$Example,$UserId){
+            require_once('configuration.php');
+            // $sqlUpdateUser = "UPDATE User
+            // SET FullName=:FullName, Dob=:Dob,Gender=:Gender,Address=:Address,School_Id=:SchoolId,Avatar=:Avatar
+            // WHERE User.UserId LIKE :UserId";
+            $sqlUpdateWord = 'UPDATE Vocabulary 
+            SET Word=:Word,WordForm=:WordForm,Kanji=:Kanji,Pronounce=:Pronounce,Meaning=:Meaning,Example=:Example
+            WHERE WordId LIKE :WordId AND User_UserId LIKE :UserId;UPDATE VocabularyLibrary 
+            SET Word=:Word,WordForm=:WordForm,Kanji=:Kanji,Pronounce=:Pronounce,Meaning=:Meaning,Example=:Example
+            WHERE WordId LIKE :WordId AND User_UserId LIKE :UserId';
+
+            $data = [
+                ':Word'=>$Word,
+                ':WordForm'=>$WordForm,
+                ':Kanji'=>$Kanji,
+                ':Pronounce'=>$Pronounce,
+                ':Meaning'=>$Meaning,
+                ':Example'=>$Example,
                 ':WordId'=>$WordId,
                 ':UserId'=>$UserId
             ];

@@ -7,10 +7,12 @@
         <?php
                 echo <<<_RENDER_INFORMATION
                 <div class="information__header">
-                    <div class="header__avatar">
-                        <img src={$user->Avatar} alt="" class="header__avatar--img">
+                    <div class="header__left">
+                        <div class="header__avatar">
+                            <img src={$user->Avatar} alt="" class="header__avatar--img">
+                        </div>
+                        <div class="header__fullname">{$user->FullName}</div>
                     </div>
-                    <div class="header__fullname">{$user->FullName}</div>
                     <nav class="navigation">
                         <ul class="nav__list">
                             <li class="nav__item"><a href="index.php?controller=words" class="nav__link">Mangager word library</a></li>

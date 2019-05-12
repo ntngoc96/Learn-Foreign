@@ -52,6 +52,7 @@
             } else {
                 $user = ModelUser::find($_SESSION['userid']);
                 $school = ModelSchool::getAll();
+                
                 $data = array('user' => $user,'schools'=>$school);
                 $this->render('update_information',$data);
             }
@@ -61,11 +62,15 @@
                 header('Location: index.php?controller=account&action=render_login&type=signin');
             } else {
                 if(!empty($_POST)){
-                    $path = 'assets/images/' . $_FILES['avatar']['name'];
+                    if(!($_FILES['avatar']['error'] == 4)){
+                        $path = 'assets/images/' . $_FILES['avatar']['name'];
 
-                    move_uploaded_file($_FILES['avatar']['tmp_name'],$path);
-                    //handle sql exception
-                    ModelUser::update($_SESSION['userid'],$_POST['full_name'],$_POST['dob'],$_POST['gender'],$_POST['address'],$_POST['school_id'],$path);
+                        move_uploaded_file($_FILES['avatar']['tmp_name'],$path);
+                        //handle sql exception
+                        ModelUser::update($_SESSION['userid'],$_POST['full_name'],$_POST['dob'],$_POST['gender'],$_POST['address'],$_POST['school_id'],$path);
+                    } else {
+                        ModelUser::updateWithoutAvatar($_SESSION['userid'],$_POST['full_name'],$_POST['dob'],$_POST['gender'],$_POST['address'],$_POST['school_id']);
+                    }
                     
                     $user = ModelUser::find($_SESSION['userid']);
                     $school = ModelSchool::getAll();

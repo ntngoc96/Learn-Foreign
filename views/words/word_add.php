@@ -16,6 +16,13 @@
             } ?>" class="form__add-word" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="wordid" value="<?php if(!empty($word)){ echo $word['WordId']; }?>">
                 <div class="form__group">
+                    <?php 
+                        if(!empty($errorUpdate)){
+                            echo "<p class='form__error'>$errorUpdate</p>";
+                        }   
+                    ?>
+                </div>
+                <div class="form__group">
                     <label for="word"class="form__label">Word</label>
                     <input class="form__input" id="word" type="text" name="word" value="<?php if(!empty($word)){ echo $word['Word']; }?>">
                 </div>

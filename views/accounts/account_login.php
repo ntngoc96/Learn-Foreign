@@ -27,7 +27,7 @@
                         </h2>
                     </div>
                     <div class="form__group">
-                        <label class="form__label" for="account_id">Username</label>
+                        <label class="form__label" for="account_id">Username <span class="account_id-warning">&nbsp;</span></label>
                         <input class="form__input" type="text" id="account_id" name="account_id">
                     </div>
                     <div class="form__group">
@@ -35,7 +35,7 @@
                         <input class="form__input" type="password" id="register_password" name="password">
                     </div>
                     <div class="form__group">
-                        <label class="form__label" for="register_repassword">Re-password</label>
+                        <label class="form__label" for="register_repassword">Re-password <span class="repassword-warning">&nbsp;</span></label>
                         <input class="form__input" type="password" id="register_repassword" name="repassword">
                     </div>
                     <div class="form__button">
@@ -43,7 +43,7 @@
                     </div>
                 </form>
             </div>
-            <div class="card__size card__size--back <?php if($_GET['type'] == 'signin'){ echo "actived"; }?>" >
+            <div class="card__size card__size--back <?php if($_GET['type'] == 'signin' || $type == 'signin'){ echo "actived"; }?>" >
                 <form action="index.php?controller=account&action=loginAccount " method="post" id="form__login" class="form__login">
                     <div class="form__group form__heading">
                         <h3 class="form__heading-secondary">
@@ -54,7 +54,16 @@
                         </h2>
                     </div>
                     <div class="form__group">
-                        <label for="username" class="form__label">Username</label>
+                        <?php
+                            if(!empty($errorPassword)){
+                                echo "<label class='form__label form__warning'> {$errorPassword} </label>";
+                            } else if(!empty($errorUsername)){
+                                echo "<label class='form__label form__warning'> {$errorUsername} </label>";
+                            }
+                        ?>
+                    </div>
+                    <div class="form__group">
+                        <label for="username" class="form__label">Username </label>
                         <input type="text" name="account_id" id="username" class="form__input">
                     </div>
                     <div class="form__group">

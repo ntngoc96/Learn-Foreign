@@ -38,13 +38,19 @@
                         $_SESSION['userid'] = $result['UserId'];
                         header('Location: index.php?controller=users&action=findById&id=' . $result['UserId'] );
                     } else {
-                        echo "Wrong password";
-                        $this->render('account_login');
+                        $data = array(
+                            'errorPassword'=>'Wrong password',
+                            'type'=>'signin'
+                        );
+                        $this->render('account_login',$data);
                     }
                 } else {
-                    echo "Wrong username";
+                    $data = array(
+                        'errorUsername'=>'Wrong username',
+                        'type'=>'signin'
+                    );
                     // echo $_POST['account_id'];
-                    $this->render('account_login');
+                    $this->render('account_login',$data);
                 }
             }
         }

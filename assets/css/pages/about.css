@@ -153,8 +153,10 @@
         text-align: center;
         
     }
-    .btn--back{
+    .btn--back:link,.btn--back:visited{
         display:inline-block;
+
+        color:navy;
 
     }
 

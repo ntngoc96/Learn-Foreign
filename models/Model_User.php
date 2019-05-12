@@ -108,6 +108,31 @@
             }
 
         }
+        static function updateWithoutAvatar($_UserId,$_FullName,$_Dob,$_Gender,$_Address,$_SchoolId){
+            
+            $db = DB::getInstance();
+            
+            $data = [
+                ':FullName'=>$_FullName,
+                ':Dob'=>$_Dob,
+                ':Gender'=>$_Gender,
+                ':Address'=>$_Address,
+                ':SchoolId'=>$_SchoolId,
+                ':UserId'=>$_UserId
+            ];
+
+            $sqlUpdateUser = "UPDATE User
+            SET FullName=:FullName, Dob=:Dob,Gender=:Gender,Address=:Address,School_Id=:SchoolId
+            WHERE User.UserId LIKE :UserId";
+
+            try{
+                $req = $db->prepare($sqlUpdateUser);
+                $req->execute($data);
+            } catch (PDOException $e) {
+                print $e->getMessage ();
+            }
+
+        }
         
     }
 ?>

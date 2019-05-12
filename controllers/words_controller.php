@@ -132,25 +132,73 @@ _RENDER_WORD_DETAIL;
             if(!isset($_SESSION['userid'])){
                 header('Location: index.php?controller=account&action=render_login&type=signin');
             } else {
-                $listWordId = "'";
-                $pathImage = "assets/images/words/" . $_FILES['image']['name'];
+                if($_FILES['image']['error'] == '4' && $_FILES['sound']['error'] == '4'){ //both null
+                    $listWordId = "'";
 
-                $pathSound = "assets/sounds/words/" . $_FILES['sound']['name'];
+                    $result = ModelWord::updateWithoutImageAndSound($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
+                    ,$_POST['meaning'],$_POST['example'],$_SESSION['userid']);
+                    if($result){
+                        header('Location: index.php?controller=words');
+                    } else {
+                        $word = ModelWord::find($_POST['wordid']);
+                        $data = array('word'=>$word,'errorUpdate'=>'Nothing changed or error sql constraint');
+                        $this->render('word_add',$data);
+                    }
+                } else if($_FILES['image']['error'] == '4'){ //image is null
+                    $pathSound = "assets/sounds/words/" . $_FILES['sound']['name'];
+                    
+                    move_uploaded_file($_FILES['sound']['tmp_name'],$pathSound);
 
-                move_uploaded_file($_FILES['image']['tmp_name'],$pathImage);
+                    $listWordId = "'";
 
-                move_uploaded_file($_FILES['sound']['tmp_name'],$pathSound);
+                    $result = ModelWord::updateWithoutImage($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
+                    ,$_POST['meaning'],$_POST['example'],$pathSound,$_SESSION['userid']);
 
-                $result = ModelWord::update($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
-                ,$_POST['meaning'],$_POST['example'],$pathImage,$pathSound,$_SESSION['userid']);
-                if($result){
-                    header('Location: index.php?controller=words');
+                    if($result){
+                        header('Location: index.php?controller=words');
+                    } else {
+                        $word = ModelWord::find($_POST['wordid']);
+                        $data = array('word'=>$word,'errorUpdate'=>'Nothing changed or error sql constraint');
+                        $this->render('word_add',$data);
+                    }
+                } else if($_FILES['sound']['error'] == '4'){ //sound is null
+                    $pathImage = "assets/images/words/" . $_FILES['image']['name'];
+
+                    move_uploaded_file($_FILES['image']['tmp_name'],$pathImage);
+
+                    $listWordId = "'";
+
+                    $result = ModelWord::updateWithoutSound($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
+                    ,$_POST['meaning'],$_POST['example'],$pathImage,$_SESSION['userid']);
+                    if($result){
+                        header('Location: index.php?controller=words');
+                    } else {
+                        $word = ModelWord::find($_POST['wordid']);
+                        $data = array('word'=>$word,'errorUpdate'=>'Nothing changed or error sql constraint');
+                        $this->render('word_add',$data);
+                    }
                 } else {
-                    echo "Sth get wrong";
-                    $word = ModelWord::find($_POST['wordid']);
-                    $data = array('word'=>$word);
-                    $this->render('word_add',$data);
+                    $pathImage = "assets/images/words/" . $_FILES['image']['name'];
+                    
+                    $pathSound = "assets/sounds/words/" . $_FILES['sound']['name'];
+                    
+                    move_uploaded_file($_FILES['image']['tmp_name'],$pathImage);
+                    
+                    move_uploaded_file($_FILES['sound']['tmp_name'],$pathSound);
+                    
+                    $listWordId = "'";
+
+                    $result = ModelWord::update($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
+                    ,$_POST['meaning'],$_POST['example'],$pathImage,$pathSound,$_SESSION['userid']);
+                    if($result){
+                        header('Location: index.php?controller=words');
+                    } else {
+                        $word = ModelWord::find($_POST['wordid']);
+                        $data = array('word'=>$word,'errorUpdate'=>'Nothing changed or error sql constraint');
+                        $this->render('word_add',$data);
+                    }
                 }
+                
             }
         }
 

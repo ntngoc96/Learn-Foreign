@@ -29,7 +29,10 @@
             margin:0 auto .8rem auto;
 
         }
-    
+        
+        .form__error{
+            color:tomato;
+        }
 
             .form__label{
                 margin-bottom:.5rem;

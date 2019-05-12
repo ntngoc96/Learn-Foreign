@@ -111,16 +111,18 @@ _RENDER_MALE;
                         <?php 
                             if(!empty($user->SchoolId)){
                                 echo "<option value={$user->SchoolId}>
-                                        {$user->SchoolId} - {$user->SchoolName}
+                                        {$user->SchoolId} 
                                     </option>";
-                                echo <<<_RENDER_SCHOOL_ID
                                 foreach ($schools as $school) {
+                                echo <<<_RENDER_SCHOOL_ID
                                     <option value={$school->SchoolId}>
-                                        {$schools->SchoolId} - {$schools->SchoolName}
+                                        {$school->SchoolId} - {$school->SchoolName}
                                     </option>
-                                }
+                                
 _RENDER_SCHOOL_ID;
+                                }
                             } else {
+                                echo "hello";
                                 echo "<option value=''>
                                     &nbsp;&nbsp;&nbsp;
                                     </option>";
