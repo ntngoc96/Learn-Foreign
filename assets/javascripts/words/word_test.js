@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded",function(){
     var typeSelection = document.getElementById('type');
     const listWordId = document.querySelectorAll('input[type=hidden]');
     const sectionQuiz = document.querySelector('.section-quiz');
+    const Score = document.querySelector('.score');
 
     function getStringWordId(){
         let str = "";
@@ -71,6 +72,7 @@ document.addEventListener("DOMContentLoaded",function(){
             }
     
             resultAnswer.innerHTML = `Right answer: ${sumRightQuestion}/${sumQuestion}`;
+            Score.innerHTML = `${sumRightQuestion*100}`;
             Popup.style.top = "50%";
             Popup.style.transform = "translate(-50%,-50%)";
         });
@@ -78,6 +80,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
     FormSubmit.addEventListener('submit',function displayResult(event){
         event.preventDefault();
+        let point = 0;
         let sumQuestion = ListAnswers.length/4;
 
         for (let index = 0; index < ListAnswers.length; index++) {
@@ -102,6 +105,7 @@ document.addEventListener("DOMContentLoaded",function(){
         }
 
         resultAnswer.innerHTML = `Right answer: ${sumRightQuestion}/${sumQuestion}`;
+        Score.innerHTML = `${sumRightQuestion*100}`;
         Popup.style.top = "50%";
         Popup.style.transform = "translate(-50%,-50%)";
     });

@@ -7,7 +7,7 @@
                 <label for="nav__register" class="nav__label">Sign Up</label>
                 <input type="radio" name="nav__view"  class="nav__input" id="nav__register" />
             </div>
-            <div class="nav__group <?php if($_GET['type'] == 'signin'){ echo "actived-border-bottom"; }?>">
+            <div class="nav__group <?php if($_GET['type'] == 'signin'|| $type == 'signin'){ echo "actived-border-bottom"; }?>">
                 <label for="nav__login" class="nav__label">Sign In</label>
                 <input type="radio" name="nav__view" class="nav__input" id="nav__login" value="Sign In">
             </div>
@@ -28,18 +28,19 @@
                     </div>
                     <div class="form__group">
                         <label class="form__label" for="account_id">Username <span class="account_id-warning">&nbsp;</span></label>
-                        <input class="form__input" type="text" id="account_id" name="account_id">
+                        <input class="form__input" type="text" id="account_id" name="account_id" required/>
                     </div>
                     <div class="form__group">
                         <label class="form__label" for="register_password">Password</label>
-                        <input class="form__input" type="password" id="register_password" name="password">
+                        <input class="form__input" type="password" id="register_password" name="password" required/>
                     </div>
                     <div class="form__group">
                         <label class="form__label" for="register_repassword">Re-password <span class="repassword-warning">&nbsp;</span></label>
-                        <input class="form__input" type="password" id="register_repassword" name="repassword">
+                        <input class="form__input" type="password" id="register_repassword" name="repassword" required/>
                     </div>
                     <div class="form__button">
                         <input type="submit" class="btn btn--register btn--gradient" value="Register">
+                        <div class="btn--disable">&nbsp;</div>
                     </div>
                 </form>
             </div>
@@ -64,11 +65,11 @@
                     </div>
                     <div class="form__group">
                         <label for="username" class="form__label">Username </label>
-                        <input type="text" name="account_id" id="username" class="form__input">
+                        <input type="text" name="account_id" id="username" class="form__input" required/>
                     </div>
                     <div class="form__group">
                         <label for="password" class="form__label">Password</label>
-                        <input type="password" name="password" id="password" class="form__input">
+                        <input type="password" name="password" id="password" class="form__input" required/>
                     </div>
                     <div class="form__button">
                         <input type="submit" class="btn btn--login btn--gradient" value="Login"/>

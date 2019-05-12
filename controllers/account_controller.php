@@ -13,7 +13,11 @@
         }
 
         public function registerAccount(){
-            $result = ModelAccount::register($_POST['account_id'],$_POST['password']);
+            $account_id = strip_tags($_POST['account_id']);
+            $account_id = addslashes($account_id);
+            $password = strip_tags($_POST['password']);
+            $password = addslashes($password);
+            $result = ModelAccount::register($account_id,$password);
             if($result){
                 $_SESSION['userid'] = $result['UserId'];
                 header('Location: index.php?controller=users&action=render_updateInformation');
@@ -31,9 +35,13 @@
             if(!isset($_POST['account_id'])){
                 $this->render('account_login');
             } else {
+                $account_id = strip_tags($_POST['account_id']);
+                $account_id = addslashes($account_id);
                 $result = ModelAccount::login($_POST['account_id']);
                 if(isset($result['AccountId'])){
-                    $password = md5($_POST['password']);
+                    $password = strip_tags($_POST['password']);
+                    $password = addslashes($password);
+                    $password = md5($password);
                     if($password == $result['Password']){
                         $_SESSION['userid'] = $result['UserId'];
                         header('Location: index.php?controller=users&action=findById&id=' . $result['UserId'] );

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded",function(){
     const navGroup = document.querySelectorAll('.nav__group');
     const AccountIdWarning = document.querySelector('.account_id-warning');
     const RePasswordWarning = document.querySelector('.repassword-warning');
-
+    const btnDisable = document.querySelector('.btn--disable');
 
     radioRegister.addEventListener('change',()=>{
         formLogin.classList.remove('actived');
@@ -35,12 +35,16 @@ document.addEventListener("DOMContentLoaded",function(){
             inputRePassWord.classList.add('right');
 
             RePasswordWarning.innerHTML = "&nbsp;";
+
+            btnDisable.style.height = "0";
         }
         else{ 
             inputRePassWord.classList.remove('right');
             inputRePassWord.classList.add('wrong');
 
             RePasswordWarning.innerHTML = "&nbsp;Re-password doesn't match";
+
+            btnDisable.style.height = "100%";
         }
     });
 
@@ -51,21 +55,35 @@ document.addEventListener("DOMContentLoaded",function(){
             inputRePassWord.classList.add('right');
 
             RePasswordWarning.innerHTML = "&nbsp;";
+
+            btnDisable.style.height = "0";
         }
         else{ 
             inputRePassWord.classList.remove('right');
             inputRePassWord.classList.add('wrong');
 
             RePasswordWarning.innerHTML = "&nbsp;Re-password doesn't match";
+
+            btnDisable.style.height = "100%";
+
         }
     })
 
     idRegister.addEventListener('keyup',()=>{
         if(idRegister.value.length < 6){
             AccountIdWarning.innerHTML = "&nbsp;Username can't be less than 6";
+            idRegister.classList.remove('right');
+            idRegister.classList.add('wrong');
+
+            btnDisable.style.height = "100%";
         }
         else{
+            idRegister.classList.remove('wrong');
+            idRegister.classList.add('right');
+
             AccountIdWarning.innerHTML = "&nbsp;";
+
+            btnDisable.style.height = "0";
         }
     })
 
