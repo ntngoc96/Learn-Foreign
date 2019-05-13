@@ -53,6 +53,8 @@
         background-image: linear-gradient(120deg, transparent 0%, transparent 50%, #fff 50%);
         background-size: 220%;
         transition: all .4s; 
+        
+        visibility: hidden;
     }
         .navigation__link:link span, .navigation__link:visited span {
             margin-right: 1rem;
@@ -71,7 +73,13 @@
     .navigation__checkbox:checked ~ .navigation__nav {
     opacity: 1;
     width: 170%; 
+
 }
+
+    .navigation__checkbox:checked ~ .navigation__nav .navigation__link:link, .navigation__checkbox:checked ~ .navigation__nav .navigation__link:visited{
+        visibility: visible;
+    }
+
     .navigation__icon {
     position: relative;
     margin-top: 1.5rem;

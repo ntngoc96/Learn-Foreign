@@ -30,10 +30,6 @@
                 ,$item['Address']);
             }
 
-            // echo '<pre>';
-            //     echo 'gg';
-            //     print_r($list);
-            // echo '</pre>';
             return $list;
         } catch (PDOException $e) {
             print $e->getMessage ();

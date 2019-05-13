@@ -29,7 +29,10 @@
             margin:0 auto .8rem auto;
 
         }
-    
+        
+        .form__error{
+            color:tomato;
+        }
 
             .form__label{
                 margin-bottom:.5rem;
@@ -99,4 +102,13 @@
         position: absolute;
         top:1%;
         right:2%;
+    }
+    .link__previous:link,.link__previous:visited{
+        color:#34495E;
+    }
+
+    .link__previous{
+        position: absolute;
+        top:1%;
+        left:2%;
     }

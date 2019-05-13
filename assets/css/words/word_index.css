@@ -103,7 +103,7 @@ body{
                 padding: .7rem 3rem !important;
             }
 
-        #table__show{
+        .table__show{
             display:none;
         }
 
@@ -182,7 +182,7 @@ body{
             cursor: pointer;
         }
 
-    .btn--close:link,.btn--close:visited{
+    .btn--close{
         position: absolute;
         top:0;
         right:0;
@@ -190,4 +190,12 @@ body{
         font-size:1.5rem;
 
         color:#000;
+
+        cursor: pointer;
+
+        transition: 300ms;
+    }
+
+    .btn--close:hover{
+        color:white;
     }

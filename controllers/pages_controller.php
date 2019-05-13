@@ -18,5 +18,9 @@
         public function error(){
             $this->render('error');
         }
+
+        public function aboutUs(){
+            $this->render('about');
+        }
     }
 ?>

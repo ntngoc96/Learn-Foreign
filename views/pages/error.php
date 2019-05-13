@@ -1,3 +1,3 @@
 <?php
- echo 'Có lỗi xảy ra';
+  echo $error_name;
 ?>

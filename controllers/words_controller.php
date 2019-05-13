@@ -15,10 +15,6 @@
                 $words = ModelWord::all($_SESSION['userid']);
                 if(count($words) > 0){
                     $data = array('words'=>$words);
-                    // echo '<pre>';
-                    // echo 'print';   
-                    // print_r($data);
-                    // echo '</pre>';
                     $this->render('index',$data);
                 } else {
                     $this->render('word_add');
@@ -36,9 +32,6 @@
         }
 
         public function addWord(){
-            // echo '<pre>';
-            // print_r($_POST);
-            // echo '</pre>';
 
             if(!isset($_SESSION['userid'])){
                 header('Location: index.php?controller=account&action=render_login&type=signin');
@@ -56,8 +49,13 @@
                 $newWord = new ModelWord($WordId,$_POST['word'],$_POST['wordform'],$_POST['kanji'],
                                             $_POST['pronounce'],$_POST['meaning'],$_POST['example'],$path,$pathSound,$_SESSION['userid']);
 
-                $newWord->add();
-                header('Location: index.php?controller=words');
+                $result = $newWord->add();
+                if($result){
+                    header('Location: index.php?controller=words');
+                } else {
+                    $this->folder = 'pages';
+                    $this->render('error',array('error_name'=>'You can just add 50 words per day'));
+                }
 
             }
         }
@@ -111,7 +109,7 @@
                             <source src={$word['Sound']} type="audio/ogg"/>
                             <source src={$word['Sound']} type="audio/mpeg"/>
                         </audio>
-                        <a href="#" class="btn--close">&nbsp;&nbsp;X&nbsp;&nbsp;</a>
+                        <span  class="btn--close">&nbsp;&nbsp;X&nbsp;&nbsp;</span>
                     </div>
 _RENDER_WORD_DETAIL;
             } else {
@@ -134,21 +132,73 @@ _RENDER_WORD_DETAIL;
             if(!isset($_SESSION['userid'])){
                 header('Location: index.php?controller=account&action=render_login&type=signin');
             } else {
-                $listWordId = "'";
-                $path = "assets/images/words/" . $_FILES['image']['name'];
+                if($_FILES['image']['error'] == '4' && $_FILES['sound']['error'] == '4'){ //both null
+                    $listWordId = "'";
 
-                move_uploaded_file($_FILES['image']['tmp_name'],$path);
+                    $result = ModelWord::updateWithoutImageAndSound($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
+                    ,$_POST['meaning'],$_POST['example'],$_SESSION['userid']);
+                    if($result){
+                        header('Location: index.php?controller=words');
+                    } else {
+                        $word = ModelWord::find($_POST['wordid']);
+                        $data = array('word'=>$word,'errorUpdate'=>'Nothing changed or error sql constraint');
+                        $this->render('word_add',$data);
+                    }
+                } else if($_FILES['image']['error'] == '4'){ //image is null
+                    $pathSound = "assets/sounds/words/" . $_FILES['sound']['name'];
+                    
+                    move_uploaded_file($_FILES['sound']['tmp_name'],$pathSound);
 
-                $result = ModelWord::update($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
-                ,$_POST['meaning'],$_POST['example'],$path,'add late');
-                if($result){
-                    header('Location: index.php?controller=words');
+                    $listWordId = "'";
+
+                    $result = ModelWord::updateWithoutImage($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
+                    ,$_POST['meaning'],$_POST['example'],$pathSound,$_SESSION['userid']);
+
+                    if($result){
+                        header('Location: index.php?controller=words');
+                    } else {
+                        $word = ModelWord::find($_POST['wordid']);
+                        $data = array('word'=>$word,'errorUpdate'=>'Nothing changed or error sql constraint');
+                        $this->render('word_add',$data);
+                    }
+                } else if($_FILES['sound']['error'] == '4'){ //sound is null
+                    $pathImage = "assets/images/words/" . $_FILES['image']['name'];
+
+                    move_uploaded_file($_FILES['image']['tmp_name'],$pathImage);
+
+                    $listWordId = "'";
+
+                    $result = ModelWord::updateWithoutSound($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
+                    ,$_POST['meaning'],$_POST['example'],$pathImage,$_SESSION['userid']);
+                    if($result){
+                        header('Location: index.php?controller=words');
+                    } else {
+                        $word = ModelWord::find($_POST['wordid']);
+                        $data = array('word'=>$word,'errorUpdate'=>'Nothing changed or error sql constraint');
+                        $this->render('word_add',$data);
+                    }
                 } else {
-                    echo "Sth get wrong";
-                    $word = ModelWord::find($_POST['wordid']);
-                    $data = array('word'=>$word);
-                    $this->render('word_add',$data);
+                    $pathImage = "assets/images/words/" . $_FILES['image']['name'];
+                    
+                    $pathSound = "assets/sounds/words/" . $_FILES['sound']['name'];
+                    
+                    move_uploaded_file($_FILES['image']['tmp_name'],$pathImage);
+                    
+                    move_uploaded_file($_FILES['sound']['tmp_name'],$pathSound);
+                    
+                    $listWordId = "'";
+
+                    $result = ModelWord::update($_POST['wordid'],$_POST['word'],$_POST['wordform'],$_POST['kanji'],$_POST['pronounce']
+                    ,$_POST['meaning'],$_POST['example'],$pathImage,$pathSound,$_SESSION['userid']);
+                    if($result){
+                        header('Location: index.php?controller=words');
+                    } else {
+                        $word = ModelWord::find($_POST['wordid']);
+                        $data = array('word'=>$word,'errorUpdate'=>'Nothing changed or error sql constraint');
+                        $this->render('word_add',$data);
+                    }
                 }
+                
             }
         }
 
@@ -190,9 +240,6 @@ _RENDER_WORD_DETAIL;
             if(!isset($_SESSION['userid'])){
                 header('Location: index.php?controller=account&action=render_login&type=signin');
             } else {
-                // echo '<pre>';
-                // print_r($_POST);
-                // echo '</pre>';
                 $listWordId = "'";
                 $listWords = [];
                 $listAllWords = [];
@@ -205,7 +252,7 @@ _RENDER_WORD_DETAIL;
                 $listWordId = rtrim($listWordId,"' ");
                 $listWordId = rtrim($listWordId,", ");
                 $listWords = ModelWord::getWords($_SESSION['userid'],$listWordId);
-                $listAllWords = ModelWord::allLibrary();
+                $listAllWords = ModelWord::allLibrary($listWordId);
                 //shuffle rra
                 shuffle($listAllWords);
 
@@ -213,10 +260,6 @@ _RENDER_WORD_DETAIL;
                 foreach ($listWords as $word) {
                     //add new key to obj
                     $word = (object) array_merge( (array)$word, array( 'isCorrect' => 'true' ) );
-                    // echo '<pre>';
-                    // echo 'word';
-                    // print_r($word);
-                    // echo '</pre>';
                     array_push($listTemp,$word);
 
                     $temp = array_pop($listAllWords);
@@ -234,14 +277,137 @@ _RENDER_WORD_DETAIL;
                     array_push($listQuestions,$listTemp);
                     $listTemp = [];
                 }
-                // echo '<pre>';
-                // echo 'list';
-                // print_r($listQuestions);
-                // echo '</pre>';
 
                 $data = array('listQuestions' => $listQuestions);
-
+                
                 $this->render('word_test',$data);
+            }
+        }
+
+        public function getQuestion(){
+            if(!isset($_SESSION['userid'])){
+                header('Location: index.php?controller=account&action=render_login&type=signin');
+            } else {
+                $type = $_GET['type'];
+                
+                unset($_GET['controller']);
+                unset($_GET['action']);
+                unset($_GET['type']);
+
+                $listWordId = "'";
+                $listWords = [];
+                $listAllWords = [];
+                $listQuestions = [];
+                $listTemp = [];
+                //make wordid string set
+                foreach ($_GET as $item) {
+                    $listWordId .= $item . "','";
+                }
+                $listWordId = rtrim($listWordId,"' ");
+                $listWordId = rtrim($listWordId,", ");
+
+                $listWords = ModelWord::getWords($_SESSION['userid'],$listWordId);
+                $listAllWords = ModelWord::allLibrary($listWordId);
+                //shuffle rra
+                shuffle($listAllWords);
+
+                
+                foreach ($listWords as $word) {
+                    //add new key to obj
+                    $word = (object) array_merge( (array)$word, array( 'isCorrect' => 'true' ) );
+                    array_push($listTemp,$word);
+
+                    $temp = array_pop($listAllWords);
+                    $temp = (object) array_merge( (array)$temp, array( 'isCorrect' => 'false' ) );
+                    array_push($listTemp,$temp);
+
+                    $temp = array_pop($listAllWords);
+                    $temp = (object) array_merge( (array)$temp, array( 'isCorrect' => 'false' ) );
+                    array_push($listTemp,$temp);
+
+                    $temp = array_pop($listAllWords);
+                    $temp = (object) array_merge( (array)$temp, array( 'isCorrect' => 'false' ) );
+                    array_push($listTemp,$temp);
+
+                    array_push($listQuestions,$listTemp);
+                    $listTemp = [];
+                }
+
+                switch ($type) {
+                    case 'meaning':
+                        $order = 1;
+                        $multiple = 65;
+                        echo "<form action='index.php?controller=words&action=getQuestion' class='form-quiz'>";
+                        foreach ($listQuestions as $question) {
+                            echo "<h3 class='heading-tertiary'>" . $order ." . What is meaning of " . $question[0]->Word ."</h3>";
+                            echo "<input type=hidden value='" . $question[0]->WordId . "'/>";
+                            shuffle($question);
+                            foreach ($question as $miniquestion) {
+                                $value = chr($multiple++) . ". " . $miniquestion->Meaning;
+                                echo <<<_RENDER_QUESTION
+                                <div class="answers">
+                                    <input class='form__input' type='radio' name={$order} id={$order}{$multiple} value={$miniquestion->isCorrect} />
+                                    <label class="form__label" for={$order}{$multiple} > {$value} </label>
+                                </div>
+_RENDER_QUESTION;
+                                    }
+                            $order++;    
+                            $multiple = 65;
+                }
+                        echo "<input type='submit' class='btn btn--gray btn--finish' value='Finish Test'>";
+                        echo "</form>";
+                        break;
+                    case 'pronounce':
+                        $order = 1;
+                        $multiple = 65;
+                        echo "<form action='index.php?controller=words&action=getQuestion' class='form-quiz'>";
+                        foreach ($listQuestions as $question) {
+                            echo "<h3 class='heading-tertiary'>" . $order ." . What is Pronounce of " . $question[0]->Word ."</h3>";
+                            echo "<input type=hidden value='" . $question[0]->WordId . "'/>";
+                            shuffle($question);
+                            foreach ($question as $miniquestion) {
+                                $value = chr($multiple++) . ". " . $miniquestion->Pronounce;
+                                echo <<<_RENDER_QUESTION
+                                <div class="answers">
+                                    <input class='form__input' type='radio' name={$order} id={$order}{$multiple} value={$miniquestion->isCorrect} />
+                                    <label class="form__label" for={$order}{$multiple} > {$value} </label>
+                                </div>
+_RENDER_QUESTION;
+                                }
+                        $order++;    
+                        $multiple = 65;
+            }
+                        echo "<input type='submit' class='btn btn--gray btn--finish' value='Finish Test'>";
+                        echo "</form>";
+                        break;
+                    case 'kanji':
+                        $order = 1;
+                        $multiple = 65;
+                        echo "<form action='index.php?controller=words&action=getQuestion' class='form-quiz'>";
+                        foreach ($listQuestions as $question) {
+                            echo "<h3 class='heading-tertiary'>" . $order ." . What is Kanji of " . $question[0]->Word ."</h3>";
+                            echo "<input type=hidden value='" . $question[0]->WordId . "'/>";
+                            shuffle($question);
+                            foreach ($question as $miniquestion) {
+                                $value = chr($multiple++) . ". " . $miniquestion->Kanji;
+                                echo <<<_RENDER_QUESTION
+                                <div class="answers">
+                                    <input class='form__input' type='radio' name={$order} id={$order}{$multiple} value={$miniquestion->isCorrect} />
+                                    <label class="form__label" for={$order}{$multiple} > {$value} </label>
+                                </div>
+_RENDER_QUESTION;
+                                }
+                        $order++;    
+                        $multiple = 65;
+            }
+                        echo "<input type='submit' class='btn btn--gray btn--finish' value='Finish Test'>";
+                        echo "</form>";
+                        break;
+                    
+                    default:
+                        echo "<h1>Error</h1>";
+                        break;
+                }
             }
         }
 

@@ -17,8 +17,8 @@ body{
     background-color: rgb(221, 220, 220);
 }
 
-.section-auth{
-    width: 22%;
+.section-update{
+    width: 20%;
     height :80%;
     position: absolute;
     top:50%;
@@ -72,16 +72,11 @@ body{
 
             .form__label{
                 display: block;
-                
                 font-size:.8rem;
 
                 color:rgb(153, 153, 153);
             }
-                .account_id-warning,.repassword-warning,.form__warning{
-                    color:tomato;
-                }
 
-            
             .form__input{
                 width:100%;
 
@@ -113,8 +108,6 @@ body{
             display:flex;
             flex-direction: column;
 
-            position: relative;
-
             font-size:.9rem;
 
             color:rgb(153, 153, 153);
@@ -132,7 +125,6 @@ body{
             outline:none;
         }
 
-        
 
     .nav__change-view{
         position: absolute;
@@ -163,43 +155,6 @@ body{
             .nav__input{
                 display:none;
             }
-.card {
-    width:100%;
-    perspective: 150rem;
-    -moz-perspective: 150rem;
-    position: relative;
-    /* height: 52rem; */
- }
-    .card__size {
-        width: 100%;
-        /* height: 52rem; */
-
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        font-size: 2rem;
-        border-radius: 3px;
-        
-        overflow: hidden;
-        backface-visibility: hidden;
-        
-        transition: all 800ms ease; }
-
-    .card__size--front {
-      transform: rotateY(180deg); 
-    }
-    .card__size--back {
-      transform: rotateY(-180deg); 
-    }
-
-.actived{
-    transform: rotateY(0);
-}
-
-.actived-border-bottom{
-    border-bottom: 1px solid rgba(15, 13, 17,.35);
-}
 
 .wrong{
     border-bottom: 1.5px solid tomato !important;
@@ -207,17 +162,4 @@ body{
 
 .right{
     border-bottom: 1.5px solid rgba(0,225,255,1);
-}
-
-.btn--disable{
-    width:100%;
-    height:100%;
-
-    position: absolute;
-    top:0;
-    left:0;
-    
-    cursor: not-allowed;
-    
-    background-color: transparent;
 }

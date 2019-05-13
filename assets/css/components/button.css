@@ -11,9 +11,12 @@
 }
 
 .btn{
+    padding: .8rem .6rem;
+
+    cursor: pointer;
+    
     border:none;
     border-radius: 100px;
-    padding: .8rem .6rem;
 }
 
 .btn:active{

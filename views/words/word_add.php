@@ -1,13 +1,8 @@
-<?php
-    // include '../check_session.php';
-    // if(!hasSession('userid')){
-    //     redirectTo('./login.html');
-    // }
-?>
 <link rel="stylesheet" href="assets/css/components/button.css">
 <link rel="stylesheet" href="assets/css/words/word_add.css">
     <div class="container">
         <a href="index.php?controller=account&action=logout" class="link__logout">Log out</a>
+        <a href="index.php?controller=users&action=findById&id=<?php echo $_SESSION['userid']; ?>" class="link__previous">Back to profile</a>
         <section class="section-add-word">
             <div class="form__group form__heading">
                 <h2 class="form__heading-primary">
@@ -20,6 +15,13 @@
                 echo 'index.php?controller=words&action=addWord';
             } ?>" class="form__add-word" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="wordid" value="<?php if(!empty($word)){ echo $word['WordId']; }?>">
+                <div class="form__group">
+                    <?php 
+                        if(!empty($errorUpdate)){
+                            echo "<p class='form__error'>$errorUpdate</p>";
+                        }   
+                    ?>
+                </div>
                 <div class="form__group">
                     <label for="word"class="form__label">Word</label>
                     <input class="form__input" id="word" type="text" name="word" value="<?php if(!empty($word)){ echo $word['Word']; }?>">
