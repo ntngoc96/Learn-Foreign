@@ -240,9 +240,6 @@ _RENDER_WORD_DETAIL;
             if(!isset($_SESSION['userid'])){
                 header('Location: index.php?controller=account&action=render_login&type=signin');
             } else {
-                // echo "<pre>";
-                // print_r($_POST);
-                // echo "</pre>";
                 $listWordId = "'";
                 $listWords = [];
                 $listAllWords = [];

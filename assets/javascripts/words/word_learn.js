@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function(){
     for(x of rightArrow){
         x.addEventListener('click',()=>{
             var currentWrapper = document.querySelector('.wrapper.actived');
-            if(currentWrapper.nextElementSibling){
+            if(currentWrapper.nextElementSibling.className == 'wrapper'){
                 currentWrapper.classList.add('animation-left');
                 setTimeout(()=>{
                     currentWrapper.classList.remove('actived');
@@ -15,6 +15,16 @@ document.addEventListener('DOMContentLoaded', function(){
                     currentWrapper = currentWrapper.nextElementSibling;
                     currentWrapper.classList.add('actived');
                 },1000);
+            } else {
+                wrapper[wrapper.length-1].classList.add('animation-left');
+                setTimeout(() => {
+                    wrapper[wrapper.length-1].classList.remove('actived');
+                    wrapper[wrapper.length-1].classList.remove('animation-left');
+                    currentWrapper = wrapper[0];
+                    currentWrapper.classList.add('actived');
+                    console.log('add');
+                }, 1000);
+                
             }
 
         })
@@ -31,6 +41,14 @@ document.addEventListener('DOMContentLoaded', function(){
                     currentWrapper = currentWrapper.previousElementSibling;
                     currentWrapper.classList.add('actived');
                 },1000);
+            } else {
+                wrapper[0].classList.add('animation-right');
+                setTimeout(() => {
+                    wrapper[0].classList.remove('actived');
+                    wrapper[0].classList.remove('animation-right');
+                    currentWrapper = wrapper[wrapper.length-1];
+                    currentWrapper.classList.add('actived');
+                }, 1000);
             }
         })
     }

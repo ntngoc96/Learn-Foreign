@@ -25,7 +25,7 @@
         </div>
         <header class="header">
             <h1 class="heading-primary">
-                grammar quiz
+                quiz
             </h1>
             <select name="type" id="type">
                 <option value="meaning">Meaning</option>
